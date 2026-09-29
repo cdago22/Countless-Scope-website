@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CountlessScope NL | Control & Instrumentation and Electrical Engineering</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            800: '#1E293B',
+                            900: '#0F172A',
+                            950: '#080D1A',
+                        },
+                        tech: {
+                            400: '#38BDF8',
+                            500: '#0284C7',
+                            600: '#0369A1',
+                        },
+                        amber: {
+                            500: '#F59E0B',
+                            600: '#D97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+        
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card-hover:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 20px 25px -5px rgba(2, 132, 199, 0.15), 0 8px 10px -6px rgba(2, 132, 199, 0.1);
+        }
+
+        /* Circuit line background effect */
+        .circuit-bg {
+            background-image: radial-gradient(rgba(56, 189, 248, 0.1) 1px, transparent 1px),
+                              radial-gradient(rgba(245, 158, 11, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+
+        .glow-text {
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+        }
+    </style>
+</head>
+<body class="antialiased text-slate-200">
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-card bg-navy-900/90 border-b border-slate-800/80" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- CountlessScope NL Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-tech-500 to-amber-500 p-0.5 shadow-lg shadow-tech-500/20 group-hover:shadow-tech-500/40 transition-all duration-300">
+                        <div class="w-full h-full bg-navy-900 rounded-[10px] flex items-center justify-center p-1.5">
+                            <!-- Custom SVG Logo for CountlessScope NL: C&I Scope Aperture + Drafting Compass & Circuit Node -->
+                            <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current text-tech-400 group-hover:text-amber-500 transition-colors">
+                                <circle cx="50" cy="50" r="42" stroke-width="6" class="opacity-30" />
+                                <circle cx="50" cy="50" r="28" stroke-width="4" stroke-dasharray="8 4" />
+                                <!-- Crosshair / Scope reticle -->
+                                <line x1="50" y1="12" x2="50" y2="88" stroke-width="5" stroke-linecap="round" />
+                                <line x1="12" y1="50" x2="88" y2="50" stroke-width="5" stroke-linecap="round" />
+                                <!-- Center Signal Node -->
+                                <circle cx="50" cy="50" r="10" fill="#F59E0B" stroke="none" />
+                                <circle cx="50" cy="50" r="18" stroke="#38BDF8" stroke-width="3" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-extrabold tracking-tight text-white flex items-center gap-1.5">
+                            CountlessScope <span class="text-xs px-1.5 py-0.5 bg-tech-500/20 text-tech-400 rounded font-bold border border-tech-500/30">NL</span>
+                        </span>
+                        <span class="text-[10px] uppercase tracking-widest text-slate-400 font-semibold">C&I & Electrical Engineering</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="#about" class="text-sm font-medium text-slate-300 hover:text-tech-400 transition-colors">About Us</a>
+                    <a href="#services" class="text-sm font-medium text-slate-300 hover:text-tech-400 transition-colors">Services</a>
+                    <a href="#capabilities" class="text-sm font-medium text-slate-300 hover:text-tech-400 transition-colors">Capabilities</a>
+                    <a href="#industries" class="text-sm font-medium text-slate-300 hover:text-tech-400 transition-colors">Industries</a>
+                    <a href="#contact" class="px-5 py-2.5 rounded-lg text-sm font-semibold text-navy-950 bg-gradient-to-r from-tech-400 to-tech-500 hover:from-tech-500 hover:to-tech-600 shadow-md shadow-tech-500/20 hover:shadow-tech-500/30 transition-all duration-300 hover:scale-[1.02]">
+                        Request Quote
+                    </a>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <button type="button" onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div class="hidden md:hidden bg-navy-900/95 border-b border-slate-800 px-4 pt-2 pb-6 space-y-3" id="mobileMenu">
+            <a href="#about" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-tech-400 hover:bg-slate-800/50">About Us</a>
+            <a href="#services" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-tech-400 hover:bg-slate-800/50">Services</a>
+            <a href="#capabilities" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-tech-400 hover:bg-slate-800/50">Capabilities</a>
+            <a href="#industries" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-tech-400 hover:bg-slate-800/50">Industries</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block w-full text-center px-4 py-2.5 rounded-lg text-base font-semibold text-navy-950 bg-tech-400 hover:bg-tech-500 shadow-md">Request Quote</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen pt-28 pb-16 flex items-center justify-center overflow-hidden circuit-bg">
+        <canvas id="heroCanvas" class="absolute inset-0 pointer-events-none z-0 opacity-40"></canvas>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-tech-500/10 border border-tech-500/30 text-tech-400 text-xs font-semibold tracking-wide uppercase">
+                        <span class="w-2 h-2 rounded-full bg-tech-400 animate-ping"></span>
+                        CountlessScope NL — Engineering Excellence
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                        Precision Control, <span class="text-transparent bg-clip-text bg-gradient-to-r from-tech-400 via-sky-300 to-tech-500 glow-text">Instrumentation</span> & Electrical Services
+                    </h1>
+
+                    <p class="text-lg sm:text-xl text-slate-300 max-w-2xl font-light leading-relaxed">
+                        CountlessScope NL delivers end-to-end industrial expertise across Engineering Design, Site Supervision, Construction, and QA/QC Commissioning for high-reliability energy & automation infrastructure.
+                    </p>
+
+                    <div class="pt-2 flex flex-wrap justify-center lg:justify-start gap-6 text-slate-300">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check text-amber-500"></i>
+                            <span class="text-sm font-medium">IEC / IEEE Compliant</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check text-amber-500"></i>
+                            <span class="text-sm font-medium">Netherlands & European Coverage</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check text-amber-500"></i>
+                            <span class="text-sm font-medium">ISO 9001 QA/QC Standards</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-xl text-navy-950 bg-gradient-to-r from-tech-400 to-tech-500 hover:from-tech-500 hover:to-tech-600 font-bold text-base shadow-lg shadow-tech-500/25 transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-3">
+                            <span>Consult Our Engineers</span>
+                            <i class="fa-solid fa-arrow-right text-sm"></i>
+                        </a>
+                        <a href="#services" class="w-full sm:w-auto px-8 py-4 rounded-xl text-white glass-card hover:bg-slate-800/80 font-semibold text-base border border-slate-700/80 transition-all duration-300 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-sliders text-tech-400"></i>
+                            <span>Explore Services Scope</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-700/80 shadow-2xl relative">
+                            <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-800">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                                    <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                                    <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                                </div>
+                                <span class="text-xs font-mono text-tech-400 bg-tech-500/10 px-2.5 py-1 rounded border border-tech-500/20">
+                                    CS_NL_TELEMETRY // ONLINE
+                                </span>
+                            </div>
+
+                            <div class="space-y-5">
+                                <div class="bg-navy-950 p-4 rounded-xl border border-slate-800">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">Scope Signal Loop Analysis</span>
+                                        <span class="text-xs font-mono text-amber-500">4-20 mA Active</span>
+                                    </div>
+                                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                        <div class="bg-gradient-to-r from-tech-500 to-amber-500 h-full w-[84%] animate-pulse"></div>
+                                    </div>
+                                    <div class="flex justify-between text-[11px] font-mono text-slate-400 mt-1">
+                                        <span>FT-102 Flow Trans: 17.4 mA</span>
+                                        <span class="text-emerald-400">124.5 m³/h</span>
+                                    </div>
+                                </div>
+
+                                <div class="bg-navy-950 p-4 rounded-xl border border-slate-800">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">Grid Electrical Integrity</span>
+                                        <span class="text-xs font-mono text-tech-400">400V 3-Phase EU</span>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-2 text-center font-mono text-xs">
+                                        <div class="bg-slate-900/80 p-2 rounded border border-slate-800">
+                                            <span class="text-slate-500 block text-[10px]">VOLTAGE</span>
+                                            <span class="text-white font-bold">400.1 V</span>
+                                        </div>
+                                        <div class="bg-slate-900/80 p-2 rounded border border-slate-800">
+                                            <span class="text-slate-500 block text-[10px]">FREQ</span>
+                                            <span class="text-emerald-400 font-bold">50.0 Hz</span>
+                                        </div>
+                                        <div class="bg-slate-900/80 p-2 rounded border border-slate-800">
+                                            <span class="text-slate-500 block text-[10px]">PF</span>
+                                            <span class="text-amber-400 font-bold">0.99</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="p-4 rounded-xl bg-gradient-to-br from-tech-500/10 to-transparent border border-tech-500/20 flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-tech-500/20 flex items-center justify-center text-tech-400">
+                                            <i class="fa-solid fa-clipboard-check text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-white">CountlessScope QA/QC</h4>
+                                            <p class="text-xs text-slate-400">Full audit trail & inspection logs</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">Verified</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-navy-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                
+                <div class="relative order-2 lg:order-1">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-tech-500/10 border border-tech-500/30 flex items-center justify-center text-tech-400">
+                                <i class="fa-solid fa-compass-drafting text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">Engineering Rigor</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">Detailed instrument loops, single line diagrams, and control logic for complex scope execution.</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-3 mt-6">
+                            <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500">
+                                <i class="fa-solid fa-shield-halved text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">Quality Assurance</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">Systematic ITP audits and compliance to NEN, IEC, and ISO standards.</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                                <i class="fa-solid fa-helmet-safety text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">Field Supervision</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">On-site resident engineer supervision for technical compliance and construction safety.</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-3 mt-6">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                                <i class="fa-solid fa-plug-circle-check text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">Commissioning</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">End-to-end FAT, SAT, loop checks, and seamless handover for high-value assets.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6 order-1 lg:order-2">
+                    <div class="inline-flex items-center gap-2 text-amber-500 font-bold text-xs uppercase tracking-widest">
+                        <i class="fa-solid fa-industry"></i>
+                        <span>About CountlessScope NL</span>
+                    </div>
+
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                        Bridging Complex Engineering Theory with Field Execution
+                    </h2>
+
+                    <p class="text-slate-300 leading-relaxed">
+                        At <strong class="text-white">CountlessScope NL</strong>, we specialize in delivering high-end technical support for Control & Instrumentation (C&I) and Electrical engineering projects. Based in the Netherlands and operating across Europe and beyond, our focus is supporting complex project scopes from initial design to commissioning.
+                    </p>
+
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Our engineering consultants and field supervisors work seamlessly with plant operators, EPC contractors, and system integrators to guarantee full compliance, operational safety, and quality assurance at every step.
+                    </p>
+
+                    <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800">
+                        <div>
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-tech-400 font-mono">100%</span>
+                            <span class="text-xs text-slate-400 uppercase tracking-wider">Standard Adherence</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-amber-500 font-mono">Zero</span>
+                            <span class="text-xs text-slate-400 uppercase tracking-wider">LTI Target Standard</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-white font-mono">Full</span>
+                            <span class="text-xs text-slate-400 uppercase tracking-wider">Scope Management</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-navy-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Visual / Feature Highlight Matrix -->
+                <div class="relative order-2 lg:order-1">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-tech-500/10 border border-tech-500/30 flex items-center justify-center text-tech-400">
+                                <i class="fa-solid fa-compass-drafting text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">Engineering Rigor</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">Detailed schematics, sizing calculations, and loop diagrams built for seamless integration.</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-3 mt-6">
+                            <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500">
+                                <i class="fa-solid fa-shield-halved text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">Quality Assurance</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">Comprehensive Inspection Test Plans (ITP) & ISO compliance for absolute reliability.</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                                <i class="fa-solid fa-helmet-safety text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">Field Supervision</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">Hands-on site engineering management to maintain timelines and safety standards.</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-3 mt-6">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                                <i class="fa-solid fa-plug-circle-check text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">Commissioning</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">Flawless FAT/SAT execution, cold/hot testing, and smooth project handover.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="space-y-6 order-1 lg:order-2">
+                    <div class="inline-flex items-center gap-2 text-amber-500 font-bold text-xs uppercase tracking-widest">
+                        <i class="fa-solid fa-industry"></i>
+                        <span>About Our Consultancy</span>
+                    </div>
+
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                        Bridging Complex Engineering Theory with Field Execution Excellence
+                    </h2>
+
+                    <p class="text-slate-300 leading-relaxed">
+                        At <strong class="text-white">Vanguard C&I and Electrical Engineering</strong>, we specialize in solving critical automation, control, and electrical challenges for heavy industrial sectors. Whether supporting greenfield developments or retrofitting operating plants, our engineers guarantee technical compliance, operational safety, and optimum process efficiency.
+                    </p>
+
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Our multidisciplinary team bridges the gap between high-level instrumentation schematics and physical field installation, verifying that every loop, panel, transformer, and DCS node functions flawlessly prior to energization.
+                    </p>
+
+                    <!-- Key Metrics -->
+                    <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800">
+                        <div>
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-tech-400 font-mono">100%</span>
+                            <span class="text-xs text-slate-400 uppercase tracking-wider">Standard Adherence</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-amber-500 font-mono">Zero</span>
+                            <span class="text-xs text-slate-400 uppercase tracking-wider">LTI Target Standard</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-white font-mono">Full</span>
+                            <span class="text-xs text-slate-400 uppercase tracking-wider">Lifecycle Support</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-navy-950 relative circuit-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-tech-400 font-bold text-xs uppercase tracking-widest bg-tech-500/10 px-3 py-1 rounded-full border border-tech-500/20">
+                    Core Technical Pillars
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Comprehensive Engineering & Field Support
+                </h2>
+                <p class="text-slate-400 text-base">
+                    From initial concept & detailed instrumentation sizing to site commissioning and QA/QC verification, we provide full support across the project lifecycle.
+                </p>
+            </div>
+
+            <!-- 4 Pillars Grid -->
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Pillar 1: Design & Engineering -->
+                <div class="glass-card glass-card-hover rounded-2xl p-8 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 rounded-xl bg-tech-500/10 border border-tech-500/30 flex items-center justify-center text-tech-400 text-2xl">
+                                <i class="fa-solid fa-pen-ruler"></i>
+                            </div>
+                            <span class="text-xs font-mono font-semibold text-slate-500 bg-slate-800 px-3 py-1 rounded-full">PILLAR 01</span>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-white mb-3">Engineering & Design</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Robust technical design and detailed engineering packages tailored for process control, safety instrumented systems (SIS), and power distribution.
+                        </p>
+
+                        <ul class="space-y-2.5 text-sm text-slate-300 mb-8">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-tech-400 mt-1"></i>
+                                <span>PLC, DCS, and SCADA System Architecture Design</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-tech-400 mt-1"></i>
+                                <span>Instrument Index, Sizing & Specification Datasheets</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-tech-400 mt-1"></i>
+                                <span>Single-Line Diagrams (SLD) & Electrical Load Calculations</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-tech-400 mt-1"></i>
+                                <span>Control Panel Layouts & Interconnection Wiring Diagrams</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button onclick="openServiceModal('engineering')" class="w-full py-3 rounded-xl bg-slate-800/80 hover:bg-tech-500 text-slate-200 hover:text-navy-950 font-semibold text-sm border border-slate-700 hover:border-tech-400 transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>View Technical Specs</span>
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Pillar 2: Project Supervision -->
+                <div class="glass-card glass-card-hover rounded-2xl p-8 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 text-2xl">
+                                <i class="fa-solid fa-user-gear"></i>
+                            </div>
+                            <span class="text-xs font-mono font-semibold text-slate-500 bg-slate-800 px-3 py-1 rounded-full">PILLAR 02</span>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-white mb-3">Project Supervision & Management</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Experienced site engineering leadership ensuring contractor compliance, safety adherence, schedule tracking, and technical integrity.
+                        </p>
+
+                        <ul class="space-y-2.5 text-sm text-slate-300 mb-8">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-amber-500 mt-1"></i>
+                                <span>On-Site C&I and Electrical Resident Engineering</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-amber-500 mt-1"></i>
+                                <span>Vendor Management & Technical Query (TQ) Resolution</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-amber-500 mt-1"></i>
+                                <span>Factory Acceptance Testing (FAT) & Site Witnessing</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-amber-500 mt-1"></i>
+                                <span>Progress Tracking, Risk Mitigation & Safety Oversight</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button onclick="openServiceModal('supervision')" class="w-full py-3 rounded-xl bg-slate-800/80 hover:bg-amber-500 text-slate-200 hover:text-navy-950 font-semibold text-sm border border-slate-700 hover:border-amber-400 transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>View Supervision Capabilities</span>
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Pillar 3: Construction & Installation -->
+                <div class="glass-card glass-card-hover rounded-2xl p-8 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                            </div>
+                            <span class="text-xs font-mono font-semibold text-slate-500 bg-slate-800 px-3 py-1 rounded-full">PILLAR 03</span>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-white mb-3">Construction & Installation</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            High-precision physical installation support for field instruments, cabling, containment, control panels, and power switchgear.
+                        </p>
+
+                        <ul class="space-y-2.5 text-sm text-slate-300 mb-8">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                                <span>Field Instrument Mounting, Tubing & Bench Calibration</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                                <span>Cable Tray Routing, Pulling & Gland Termination</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                                <span>HV/LV Switchgear & MCC Panel Installation</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                                <span>Instrument Loop Checking & Cold Continuity Testing</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button onclick="openServiceModal('construction')" class="w-full py-3 rounded-xl bg-slate-800/80 hover:bg-emerald-400 text-slate-200 hover:text-navy-950 font-semibold text-sm border border-slate-700 hover:border-emerald-400 transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>View Field Services</span>
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Pillar 4: QA/QC & Commissioning -->
+                <div class="glass-card glass-card-hover rounded-2xl p-8 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-2xl">
+                                <i class="fa-solid fa-clipboard-check"></i>
+                            </div>
+                            <span class="text-xs font-mono font-semibold text-slate-500 bg-slate-800 px-3 py-1 rounded-full">PILLAR 04</span>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-white mb-3">QA/QC & Commissioning</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Rigorous quality assurance audits, international standard compliance verification, and systematic commissioning execution.
+                        </p>
+
+                        <ul class="space-y-2.5 text-sm text-slate-300 mb-8">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-purple-400 mt-1"></i>
+                                <span>Inspection Test Plans (ITP) & Quality Management Audits</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-purple-400 mt-1"></i>
+                                <span>Regulatory & Standard Compliance (IEC, IEEE, ISA, NEC)</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-purple-400 mt-1"></i>
+                                <span>Pre-Commissioning, SAT, & Hot Loop Testing</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-purple-400 mt-1"></i>
+                                <span>Punch-List Management & As-Built Documentation</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button onclick="openServiceModal('qaqc')" class="w-full py-3 rounded-xl bg-slate-800/80 hover:bg-purple-400 text-slate-200 hover:text-navy-950 font-semibold text-sm border border-slate-700 hover:border-purple-400 transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>View Audit & Testing Specs</span>
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities & Standards Bar -->
+    <section id="capabilities" class="py-16 bg-navy-900 border-y border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h3 class="text-xs font-mono uppercase tracking-widest text-slate-400">Strict Adherence to International Standards & Protocols</h3>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 text-center">
+                <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 flex flex-col items-center justify-center">
+                    <span class="text-xl font-bold text-tech-400 font-mono">IEC 61508/61511</span>
+                    <span class="text-[11px] text-slate-400 mt-1">Functional Safety / SIL</span>
+                </div>
+                <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 flex flex-col items-center justify-center">
+                    <span class="text-xl font-bold text-amber-500 font-mono">IEEE Standards</span>
+                    <span class="text-[11px] text-slate-400 mt-1">Electrical Power Systems</span>
+                </div>
+                <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 flex flex-col items-center justify-center">
+                    <span class="text-xl font-bold text-emerald-400 font-mono">ISA-5.1</span>
+                    <span class="text-[11px] text-slate-400 mt-1">Instrumentation Symbols</span>
+                </div>
+                <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 flex flex-col items-center justify-center">
+                    <span class="text-xl font-bold text-purple-400 font-mono">NEC / NFPA 70</span>
+                    <span class="text-[11px] text-slate-400 mt-1">National Electrical Code</span>
+                </div>
+                <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 flex flex-col items-center justify-center">
+                    <span class="text-xl font-bold text-sky-400 font-mono">ATEX / IECEx</span>
+                    <span class="text-[11px] text-slate-400 mt-1">Hazardous Area Equipment</span>
+                </div>
+                <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 flex flex-col items-center justify-center">
+                    <span class="text-xl font-bold text-white font-mono">ISO 9001</span>
+                    <span class="text-[11px] text-slate-400 mt-1">Quality Management System</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries Served Section -->
+    <section id="industries" class="py-24 bg-navy-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Target Sectors</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Industries We Support</h2>
+                <p class="text-slate-400 text-sm">Engineered control and electrical solutions suited for demanding industrial environments.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Industry 1 -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition-all duration-300 flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 shrink-0 text-xl">
+                        <i class="fa-solid fa-oil-well"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-1">Oil & Gas (Upstream / Downstream)</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">Hazardous area instrumentation, ESD systems, custody transfer metering, and refinery electrical switchgear.</p>
+                    </div>
+                </div>
+
+                <!-- Industry 2 -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition-all duration-300 flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-tech-500/10 border border-tech-500/20 flex items-center justify-center text-tech-400 shrink-0 text-xl">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-1">Energy & Power Generation</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">Turbine control systems, substation automation, MV/LV distribution panels, and synchronization gear.</p>
+                    </div>
+                </div>
+
+                <!-- Industry 3 -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition-all duration-300 flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0 text-xl">
+                        <i class="fa-solid fa-faucet-drip"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-1">Water & Wastewater Treatment</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">SCADA network integration, VFD pump controls, chemical dosing instrumentation, and telemetry.</p>
+                    </div>
+                </div>
+
+                <!-- Industry 4 -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition-all duration-300 flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 shrink-0 text-xl">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-1">Chemical Processing</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">Batch control automation (ISA-88), safety interlocks, analytical instrument sampling, and explosive gas detection.</p>
+                    </div>
+                </div>
+
+                <!-- Industry 5 -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition-all duration-300 flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 shrink-0 text-xl">
+                        <i class="fa-solid fa-solar-panel"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-1">Renewable Energy & Storage</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">BESS monitoring, solar PV inverter control systems, grid compliance testing, and wind farm SCADA.</p>
+                    </div>
+                </div>
+
+                <!-- Industry 6 -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition-all duration-300 flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 shrink-0 text-xl">
+                        <i class="fa-solid fa-industry"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-1">Manufacturing & Automation</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">Assembly line PLC programming, conveyor motor drives, safety light curtains, and industrial networks.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Contact / RFQ Section -->
+    <section id="contact" class="py-24 bg-navy-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+                
+                <div class="lg:col-span-5 space-y-8">
+                    <div>
+                        <span class="text-tech-400 font-bold text-xs uppercase tracking-widest">Connect With Us</span>
+                        <h2 class="text-3xl font-extrabold text-white mt-2">Let’s Discuss Your Engineering Scope</h2>
+                        <p class="text-slate-400 text-sm mt-3 leading-relaxed">
+                            Contact CountlessScope NL directly for technical inquiries, site supervision requests, or complete QA/QC auditing packages.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-11 h-11 rounded-xl bg-tech-500/10 border border-tech-500/30 flex items-center justify-center text-tech-400 shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">CountlessScope NL HQ</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">Engineering Plaza 12, High-Tech Campus<br>The Netherlands</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Direct Email</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">info@countlessscope.nl</p>
+                                <p class="text-xs text-slate-400">projects@countlessscope.nl</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Phone Support</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">+31 (0)20 555 4020 (NL Office)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-file-pdf text-2xl text-red-400"></i>
+                            <div>
+                                <span class="text-xs font-bold text-white block">CountlessScope NL Capability Statement</span>
+                                <span class="text-[11px] text-slate-400">PDF Technical Profile</span>
+                            </div>
+                        </div>
+                        <button onclick="downloadBrochure()" class="text-xs font-semibold px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-tech-400 border border-slate-700 transition-colors">
+                            Download
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <div class="glass-card p-8 rounded-2xl border border-slate-800 shadow-xl relative">
+                        <h3 class="text-2xl font-bold text-white mb-2">Request a Project Proposal</h3>
+                        <p class="text-xs text-slate-400 mb-6">Submit your C&I or Electrical engineering requirements to CountlessScope NL for a fast quotation.</p>
+
+                        <form id="rfqForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="fullName" class="block text-xs font-semibold text-slate-300 mb-1.5">Full Name *</label>
+                                    <input type="text" id="fullName" required class="w-full px-4 py-2.5 rounded-lg bg-navy-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-tech-400 focus:ring-1 focus:ring-tech-400 transition-colors" placeholder="e.g. Jan van den Berg">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-xs font-semibold text-slate-300 mb-1.5">Work Email *</label>
+                                    <input type="email" id="email" required class="w-full px-4 py-2.5 rounded-lg bg-navy-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-tech-400 focus:ring-1 focus:ring-tech-400 transition-colors" placeholder="e.g. j.vandenberg@company.nl">
+                                </div>
+                            </div>
+
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="company" class="block text-xs font-semibold text-slate-300 mb-1.5">Company / Organization *</label>
+                                    <input type="text" id="company" required class="w-full px-4 py-2.5 rounded-lg bg-navy-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-tech-400 focus:ring-1 focus:ring-tech-400 transition-colors" placeholder="e.g. Dutch Energy Solutions">
+                                </div>
+                                <div>
+                                    <label for="serviceType" class="block text-xs font-semibold text-slate-300 mb-1.5">Primary Service Scope *</label>
+                                    <select id="serviceType" required class="w-full px-4 py-2.5 rounded-lg bg-navy-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-tech-400 focus:ring-1 focus:ring-tech-400 transition-colors">
+                                        <option value="" disabled selected>Select service category</option>
+                                        <option value="Engineering & Design">Engineering & Design</option>
+                                        <option value="Project Supervision">Project Supervision & Management</option>
+                                        <option value="Construction & Installation">Construction & Installation Support</option>
+                                        <option value="QA/QC & Commissioning">QA/QC & Commissioning Audits</option>
+                                        <option value="Full Scope Technical Package">Full Scope C&I + Electrical Package</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="projectScope" class="block text-xs font-semibold text-slate-300 mb-1.5">Project Details & Scope Overview</label>
+                                <textarea id="projectScope" rows="4" class="w-full px-4 py-2.5 rounded-lg bg-navy-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-tech-400 focus:ring-1 focus:ring-tech-400 transition-colors" placeholder="Describe your project, location, technical requirements..."></textarea>
+                            </div>
+
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" id="urgent" class="rounded bg-navy-950 border-slate-800 text-tech-500 focus:ring-tech-400">
+                                <label for="urgent" class="text-xs text-slate-400">Mark as High-Priority Technical Request</label>
+                            </div>
+
+                            <button type="submit" id="submitBtn" class="w-full py-3.5 rounded-xl text-navy-950 bg-gradient-to-r from-tech-400 to-tech-500 hover:from-tech-500 hover:to-tech-600 font-bold text-sm shadow-lg shadow-tech-500/20 transition-all duration-300 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>Submit Scope Proposal Request</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy-950 border-t border-slate-800 py-12 text-slate-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                
+                <div class="space-y-3 md:col-span-1">
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 text-tech-400">
+                            <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current">
+                                <circle cx="50" cy="50" r="40" stroke-width="8" />
+                                <line x1="50" y1="10" x2="50" y2="90" stroke-width="8" />
+                                <line x1="10" y1="50" x2="90" y2="50" stroke-width="8" />
+                                <circle cx="50" cy="50" r="14" fill="#F59E0B" />
+                            </svg>
+                        </div>
+                        <span class="text-lg font-extrabold text-white">CountlessScope NL</span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Control & Instrumentation and Electrical engineering services across Engineering, Supervision, Construction, and Quality Control.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Core Pillars</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#services" class="hover:text-tech-400 transition-colors">Engineering & Design</a></li>
+                        <li><a href="#services" class="hover:text-tech-400 transition-colors">Project Supervision</a></li>
+                        <li><a href="#services" class="hover:text-tech-400 transition-colors">Construction Support</a></li>
+                        <li><a href="#services" class="hover:text-tech-400 transition-colors">QA/QC & Commissioning</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Industries</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#industries" class="hover:text-tech-400 transition-colors">Oil & Gas</a></li>
+                        <li><a href="#industries" class="hover:text-tech-400 transition-colors">Energy & Power</a></li>
+                        <li><a href="#industries" class="hover:text-tech-400 transition-colors">Water Treatment</a></li>
+                        <li><a href="#industries" class="hover:text-tech-400 transition-colors">Chemical Processing</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Connect</h4>
+                    <div class="flex items-center gap-3 mb-3">
+                        <a href="#" class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-slate-300 hover:text-tech-400 hover:bg-slate-700 transition-colors"><i class="fa-brands fa-linkedin-in text-xs"></i></a>
+                        <a href="#" class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-slate-300 hover:text-tech-400 hover:bg-slate-700 transition-colors"><i class="fa-solid fa-envelope text-xs"></i></a>
+                    </div>
+                    <p class="text-xs text-slate-500">Registered Engineering Consultancy in Netherlands.</p>
+                </div>
+
+            </div>
+
+            <div class="pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                <p>&copy; <span id="yearSpan"></span> CountlessScope NL B.V. All Rights Reserved.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="hover:text-slate-400 transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-slate-400 transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-slate-400 transition-colors">Safety Standard</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Service Details Modal Dialog -->
+    <div id="serviceModal" class="fixed inset-0 z-50 bg-navy-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="glass-card max-w-2xl w-full rounded-2xl border border-slate-700 p-6 sm:p-8 relative space-y-4 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeServiceModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div id="modalContent">
+                <!-- Dynamically Populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="glass-card bg-navy-900 border border-tech-500/50 p-4 rounded-xl shadow-2xl flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <div>
+                <h5 class="text-xs font-bold text-white" id="toastTitle">Inquiry Received</h5>
+                <p class="text-[11px] text-slate-300" id="toastMsg">Our engineering team will contact you shortly.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ... existing JavaScript logic ...
+
+        function downloadBrochure() {
+            showToast("Brochure Downloaded", "CountlessScope_NL_Capability_Statement.pdf saved.");
+        }
+
+        // ... existing animation code ...
+    </script>
+</body>
+</html>
